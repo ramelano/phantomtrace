@@ -1,0 +1,12 @@
+{
+  "username": "ornek_kullanici",
+  "profile_id": "12345",
+  "followers": [
+    {"username": "alice", "id": "1"},
+    {"username": "charlie", "id": "3"}
+  ],
+  "following": [
+    {"username": "bob", "id": "2"},
+    {"username": "diana", "id": "4"}
+  ]
+}

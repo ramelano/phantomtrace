@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PhantomTrace</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0b1020;--panel:#131a2e;--muted:#9aa7c2;--line:#28334f;--accent:#7c9cff}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#eef2ff;font:15px system-ui,sans-serif}main{max-width:1050px;margin:0 auto;padding:42px 20px}.top{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:28px}h1,h2,p{margin-top:0}h1{margin-bottom:6px}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.card{display:block;padding:20px;background:var(--panel);border:1px solid var(--line);border-radius:14px;color:inherit;text-decoration:none}.card:hover{border-color:var(--accent);transform:translateY(-1px)}.badge{display:inline-block;color:#b9c7ff;background:#26345f;border-radius:999px;padding:4px 9px;font-size:12px}.empty{border:1px dashed var(--line);padding:28px;border-radius:14px}.code{font-family:ui-monospace,monospace;color:#c5d1ff}
+  </style>
+</head>
+<body><main>
+  <div class="top"><div><h1>PhantomTrace</h1><p class="muted">Yerel snapshot karşılaştırma dashboard’u</p></div><span class="badge">Oturum erişimi yok</span></div>
+  {% if error %}<div class="empty">{{ error }}</div>{% endif %}
+  {% if cards %}<div class="grid">
+    {% for card in cards %}<a class="card" href="{{ url_for('profile_view', profile_id=card.profile.id) }}">
+      <h2>@{{ card.profile.username }}</h2>
+      {% if card.snapshot %}<p class="muted">Son tarama: {{ card.snapshot.captured_at.strftime('%Y-%m-%d %H:%M UTC') }}</p><p>{{ 'Önceki snapshot mevcut' if card.has_previous else 'İlk snapshot' }}</p>{% else %}<p class="muted">Henüz snapshot yok</p>{% endif %}
+    </a>{% endfor %}
+  </div>{% else %}<div class="empty"><h2>Henüz veri yok</h2><p class="muted">README’deki JSON/CSV formatıyla ilk snapshot’ı <span class="code">phantom_script.js</span> üzerinden içe aktarın.</p></div>{% endif %}
+</main></body></html>
